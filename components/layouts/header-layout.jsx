@@ -17,7 +17,7 @@ const HeaderLayout = () => {
     window.addEventListener(
       "scroll",
       () => {
-        if (window.pageYOffset >= 100) {
+        if (window.pageYOffset >= 50) {
           setGiveShadow(true);
         } else {
           setGiveShadow(false);
