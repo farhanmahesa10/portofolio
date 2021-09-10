@@ -2,15 +2,19 @@ import Image from "next/image";
 
 const Profile = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
-      <div className="mt-16">
-        <Image
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4  ">
+      <div className="mt-16  ">
+        <div className="">
+
+        <img
           src="/images/me.jpg"
           alt="me"
-          width="400"
-          height="400"
-          className=" border-2 border-gray-300 rounded-full  "
+          width="600"
+          height="600"
+          className=" rounded-md shadow-2xl   "
         />
+        </div>
+
       </div>
       <div className="flex   w-full items-center ">
         <div className=" w-full bg-white rounded-md px-4 ">
