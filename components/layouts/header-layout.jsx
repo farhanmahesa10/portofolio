@@ -1,14 +1,15 @@
 import NavMenu from "../../config/nav-menu";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 const HeaderLayout = () => {
   const [showMenuWhenSmall, setShowMenuWhenSmall] = useState(false);
   const [giveShadow, setGiveShadow] = useState(false);
   useEffect(() => {
-    if (window.innerWidth >= 768) {
+    if (window.innerWidth >= 1024) {
       setShowMenuWhenSmall(true);
     }
     window.addEventListener("resize", e => {
-      if (e.target.innerWidth >= 768) {
+      if (e.target.innerWidth >= 1024) {
         setShowMenuWhenSmall(true);
       } else {
         setShowMenuWhenSmall(false);
@@ -28,7 +29,7 @@ const HeaderLayout = () => {
   });
 
   const handleShowMenuWhenSmall = () => {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 1024) {
       if (showMenuWhenSmall == true) {
         setShowMenuWhenSmall(false);
       } else {
@@ -39,36 +40,40 @@ const HeaderLayout = () => {
   return (
     <>
       <nav
-        className={`z-10 bg-white fixed w-full -mt-2`}
+        className={`z-10  fixed w-full lg:bg-opacity-0  ${
+          showMenuWhenSmall ? "bg-gray-500 bg-opacity-50 text-white" : " "
+        }`}
         style={
           giveShadow
             ? {
                 boxShadow: " 0px 10px 30px 0px #ccc",
                 transition: "box-shadow 0.08s",
+                backgroundColor: "white",
               }
             : {}
         }
       >
-        <div className="mx-auto px-2 sm:px-6 lg:px-8 md:h-16 ">
-          <div className="text-black w-full h-full md:flex items-center">
+        <div className="mx-auto px-2 sm:px-6 lg:px-8 lg:h-16 ">
+          <div className="text-black w-full h-full lg:flex items-center">
             <div className="flex justify-between items-center">
               <div>
-                <h1 className="text-black text-lg font-bold">
-                  &lt;/&gt; M FARHAN
+                <h1 className="text-black text-lg font-bold flex items-center gap-2">
+                  <Image src="/images/logo.png" width="40" height="40" /> M
+                  FARHAN
                 </h1>
               </div>
-              <div className="md:hidden my-5">
+              <div className="lg:hidden my-5">
                 <button onClick={handleShowMenuWhenSmall}>
                   <i className="fa fa-bars fa-lg "></i>
                 </button>
               </div>
             </div>
 
-            <div className={`md:flex ${!showMenuWhenSmall ? "hidden " : ""} `}>
+            <div className={`lg:flex  ${!showMenuWhenSmall ? "hidden " : ""} `}>
               {NavMenu.map((r, i) => {
                 return (
                   <a href="" className="text-lg mx-4 " key={i}>
-                    <div className=" hover:bg-gray-50 py-2 md:py-1 px-2 -mt-8 md:-mt-0 rounded-md text-gray-500 pl-2">
+                    <div className=" hover:text-gray-400 py-2 md:py-1 px-2 -mt-8 md:-mt-0 rounded-md pl-2 text-white lg:text-gray-500">
                       {r.title.toUpperCase()}
                     </div>
                   </a>

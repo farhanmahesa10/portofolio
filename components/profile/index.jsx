@@ -2,33 +2,36 @@ import Image from "next/image";
 
 const Profile = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4  ">
-      <div className="mt-16  ">
-        <div className="">
-
-        <img
-          src="/images/me.jpg"
-          alt="me"
-          width="600"
-          height="600"
-          className=" rounded-md shadow-2xl   "
-        />
+    <div className="lg:flex lg:items-center lg:h-screen border-b">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4  ">
+        <div className=" flex justify-center ">
+          <div className="lg:mx-7">
+            <img
+              src="/images/me.jpg"
+              alt="me"
+              width="600"
+              height="600"
+              className=" lg:rounded-md lg:shadow-2xl   "
+            />
+          </div>
         </div>
+        <div
+          className="flex px-7  w-full items-center absolute lg:static  bg-gray-100 bg-opacity-50 lg:bg-opacity-0"
+          style={{ height: "600px" }}
+        >
+          <div className=" w-full  rounded-md px-4 ">
+            <h3 className="font-semibold text-left">HELLO THERE,</h3>
+            <h1 className="text-left text-4xl font-semibold">
+              I Am Web Developer
+            </h1>
+            <h1>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet
+              libero magni obcaecati dignissimos id illum quod praesentium
+              ducimus alias quo a quos ipsa repudiandae nisi laudantium
+              voluptas.
+            </h1>
 
-      </div>
-      <div className="flex   w-full items-center ">
-        <div className=" w-full bg-white rounded-md px-4 ">
-          <h3 className="font-semibold text-left">HELLO THERE,</h3>
-          <h1 className="text-left text-4xl font-semibold">
-            I Am Web Developer
-          </h1>
-          <h1>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet
-            libero magni obcaecati dignissimos id illum quod praesentium ducimus
-            alias quo a quos ipsa repudiandae nisi laudantium voluptas.
-          </h1>
-
-          {/* <table className="mt-2">
+            {/* <table className="mt-2">
             <tr className="font-semibold">
               <td className="w-32 py-1">NAME</td>
               <td>:</td>
@@ -63,6 +66,7 @@ const Profile = () => {
               </td>
             </tr>
           </table> */}
+          </div>
         </div>
       </div>
     </div>

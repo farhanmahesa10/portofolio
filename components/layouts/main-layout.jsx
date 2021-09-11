@@ -2,11 +2,9 @@ import HeaderLayout from "./header-layout";
 
 const MainLayout = props => {
   return (
-    <div>
+    <div className="-mt-2">
       <HeaderLayout></HeaderLayout>
-      <div className=" mx-auto px-2 sm:px-6 lg:px-8 md:h-16 mt-2 ">
-        {props.children}
-      </div>
+      <div className="md:h-16 mt-2 ">{props.children}</div>
     </div>
   );
 };

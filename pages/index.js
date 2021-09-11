@@ -9,10 +9,18 @@ export default function Home() {
 
 
   return (
-    <div className="">
+    <div >
       <MainLayout>
         <Profile />
         <Experiences />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
       </MainLayout>
     </div>
   )
