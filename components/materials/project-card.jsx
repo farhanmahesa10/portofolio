@@ -7,10 +7,12 @@ const ProjectCard = props => {
     };
   }
   return (
-    <a {...attributes} title="click for live demo">
-      <div
-        className={`w-full h-60 p-4 text-center cursor-pointer  transition ease-out duration-300  ${props.className}  `}
-      >
+    <a
+      {...attributes}
+      title="click for detail"
+      className={`w-full  p-4  text-center cursor-pointer  transition ease-out duration-300  ${props.className}  `}
+    >
+      <div>
         <h1
           className="text-left text-primary"
           dangerouslySetInnerHTML={{

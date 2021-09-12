@@ -10,8 +10,14 @@ body {
    color: #212529;
 }
 
-#experiences{
-  background-image: url('../public/images/bg1.jpeg');
+.img-gradient{
+   /* background: linear-gradient(#fff, rgba(111, 111, 111, 0.63),  #fff), url('../public/images/bg1.jpeg') no-repeat center; */
+  background: linear-gradient(#fff, rgba(111, 111, 111, 0.6), #fff), url('../public/images/bg1.jpeg') no-repeat center;
+  background-size: cover;
+}
+#img-first{
+  background: linear-gradient(#fff, rgba(111, 111, 111, 0.6), #f7f7f7), url('../public/images/bg_abilities.jpg') no-repeat center;
+  background-size: cover;
 }
 .cardShadowHover:hover{
   box-shadow: 0px 10px 20px 5px gray;

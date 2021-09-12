@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Profile = () => {
   return (
-    <div className="lg:flex lg:items-center lg:h-screen border-b">
+    <div className="lg:flex lg:items-center lg:h-screen border-b" id="hello">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4  ">
         <div className=" flex justify-center ">
           <div className="lg:mx-7">

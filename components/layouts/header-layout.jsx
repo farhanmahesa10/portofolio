@@ -1,5 +1,6 @@
 import NavMenu from "../../config/nav-menu";
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 const HeaderLayout = () => {
   const [showMenuWhenSmall, setShowMenuWhenSmall] = useState(false);
@@ -72,11 +73,13 @@ const HeaderLayout = () => {
             <div className={`lg:flex  ${!showMenuWhenSmall ? "hidden " : ""} `}>
               {NavMenu.map((r, i) => {
                 return (
-                  <a href="" className="text-lg mx-4 " key={i}>
-                    <div className=" hover:text-gray-400 py-2 md:py-1 px-2 -mt-8 md:-mt-0 rounded-md pl-2 text-white lg:text-gray-500">
-                      {r.title.toUpperCase()}
-                    </div>
-                  </a>
+                  <Link href={r.link} key={i}>
+                    <a className="text-lg mx-4 ">
+                      <div className=" hover:text-gray-400 py-2 md:py-1 px-2 -mt-8 md:-mt-0 rounded-md pl-2 text-white lg:text-gray-500">
+                        {r.title.toUpperCase()}
+                      </div>
+                    </a>
+                  </Link>
                 );
               })}
             </div>
