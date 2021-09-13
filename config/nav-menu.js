@@ -1,23 +1,23 @@
 const NavMenu = [
     {
         title: "Hello",
-        link: "/#hello",
+        link: "hello",
     },
     {
         title: "Resume",
-        link: "/#resume",
+        link: "resume",
     },
     {
         title: "Project",
-        link: "/#project",
+        link: "project",
     },
     {
         title: "Education",
-        link: "/#education",
+        link: "education",
     },
     {
         title: "Contact",
-        link: "/#contact",
+        link: "contact",
     },
 ];
 export default NavMenu;

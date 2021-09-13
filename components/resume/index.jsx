@@ -4,7 +4,7 @@ import ProgressBar from "../materials/progress-bar";
 import ProjectCard from "../materials/project-card";
 const Resume = () => {
   return (
-    <div className="bg-gray-50 " id="resume">
+    <div name="education" className="bg-gray-50 " id="resume">
       {/* some bug space */}
       <h1 className="text-center text-5xl font-semibold ">&nbsp;</h1>
       <h2 className="text-center mt-10 text-xl ">

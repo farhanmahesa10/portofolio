@@ -4,9 +4,9 @@ const Project = () => {
   return (
     <div id="project">
       <h1 className="text-center">&nbsp;</h1>
-      <h2 className="text-center mt-10 text-xl ">
+      <h2 className="text-center mt-14 text-xl ">
         <span className="border-b-4 border-gray-700 pb-4 ">
-          &nbsp;&nbsp;EDUCATION&nbsp;&nbsp;
+          &nbsp;&nbsp;PROJECT&nbsp;&nbsp;
         </span>
       </h2>
       <h1 className="text-center text-4xl font-bold pt-10">

@@ -3,10 +3,10 @@ const Contact = () => {
     <div className=" md:mx-32 mx-8 h-screen flex items-center" id="contact">
       <div className=" ">
         <div className="">
-          <h1 className="text-xl mb-4 mt-32">CONTACT</h1>
+          <h1 className="text-xl mb-4 mt-10">CONTACT</h1>
           <h1 className="text-7xl font-bold">Know me closer.</h1>
 
-          <div className="h-2 w-60 mt-10 bg-gray-800"></div>
+          <div className="h-2 w-60  bg-gray-800"></div>
 
           <ul className="lg:flex flex-wrap flex  mt-24 gap-11 ">
             <li className="flex items-center gap-4 ">

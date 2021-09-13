@@ -17,12 +17,7 @@ export default function Home() {
         <Project />
         <Education />
         <Contact />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+
       </MainLayout>
     </div>
   )

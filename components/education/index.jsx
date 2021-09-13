@@ -1,8 +1,9 @@
+import { Element } from "react-scroll";
 const Education = () => {
   return (
     <div id="education" className="pb-24 img-gradient">
       <h1>&nbsp;</h1>
-      <h2 className="text-center mt-10 text-xl ">
+      <h2 className="text-center mt-28  text-xl ">
         <span className="border-b-4 border-gray-700 pb-4 ">
           &nbsp;&nbsp;EDUCATION&nbsp;&nbsp;
         </span>
