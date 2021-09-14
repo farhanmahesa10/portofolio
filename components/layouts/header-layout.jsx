@@ -8,6 +8,7 @@ const HeaderLayout = () => {
   const [giveShadow, setGiveShadow] = useState(false);
   const [activeLink, setActiveLink] = useState("");
   useEffect(() => {
+    //component did mount harus menyertakan array kosong parammeter kedua useEffect
     if (window.innerWidth >= 1024) {
       setShowMenuWhenSmall(true);
     }
@@ -30,7 +31,7 @@ const HeaderLayout = () => {
       },
       { passive: true }
     );
-  });
+  }, []);
 
   const handleShowMenuWhenSmall = () => {
     if (window.innerWidth < 1024) {
