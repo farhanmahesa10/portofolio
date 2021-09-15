@@ -8,13 +8,22 @@ const InputImage = props => {
   };
   return (
     <div className="mb-2   ">
+      <h1 className="my-2 text-xl text-left">{props.label}</h1>
       <div
-        className="h-96 flex justify-center items-center w-96 hover:opacity-80 cursor-pointer"
+        className={`${
+          props.height ? props.height : "h-96"
+        } flex justify-center items-center w-96 hover:opacity-80 cursor-pointer`}
         onClick={handleImageClick}
         onMouseOver={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
-        <img src={imgPreview} alt="" className="max-h-96 max-w-96" />
+        <img
+          src={imgPreview}
+          alt=""
+          className={`${
+            props.height ? props.height : "h-96"
+          } max-h-96 max-w-96`}
+        />
         {hover ? (
           <div className=" text-center p-4  bg-gray-400 bg-opacity-40 rounded-lg absolute ">
             <i className="fa fa-upload fa-2x text-white"></i>

@@ -26,6 +26,7 @@ const MainAdminLayout = props => {
   return (
     <div className="flex flex-col">
       <Head>
+        <link rel="icon" href={`${process.env.BASE_URL}/images/logo.png`} />
         <title>{props.title}</title>
       </Head>
       <HeaderAdminLayout

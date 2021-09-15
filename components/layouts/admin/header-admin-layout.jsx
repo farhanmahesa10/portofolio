@@ -21,7 +21,14 @@ const HeaderAdminLayout = props => {
         <Image src="/images/logo.png" width="40" height="40" />{" "}
         <h1 className="font-bold text-xl">M FARHAN</h1>
       </div>
-      <div>ss</div>
+      <div className="flex items-center gap-2 cursor-pointer">
+        <Image src="/images/logo.png" width="40" height="40" />{" "}
+        <i className="fa fa-caret-down fa-"></i>
+        <div
+          className="relative -bottom-4 right-16
+         bg-white shadow-lg "
+        ></div>
+      </div>
     </header>
   );
 };

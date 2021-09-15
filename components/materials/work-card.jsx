@@ -1,4 +1,4 @@
-const Card = props => {
+const WorkCard = props => {
   return (
     <div className={` py-4 px-2 ${props.className}`}>
       <div className="flex gap-4">
@@ -21,4 +21,4 @@ const Card = props => {
   );
 };
 
-export default Card;
+export default WorkCard;
