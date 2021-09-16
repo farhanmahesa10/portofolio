@@ -3,7 +3,7 @@ const InputText = props => {
     <div className="mb-2">
       <p className="text-lg ">{props.label}</p>
       <input
-        type="text"
+        type={props.type ? props.type : "text"}
         onChange={e => props.valueChange(e.target.value)}
         placeholder={props.placeholder}
         value={props.value}

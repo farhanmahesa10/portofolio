@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
+import Link from "next/link";
+import Dropdown from "../../materials/dropdown";
 const HeaderAdminLayout = props => {
   const [barStatus, setBarStatus] = useState(false);
   const hanldeBar = () => {
@@ -22,12 +24,32 @@ const HeaderAdminLayout = props => {
         <h1 className="font-bold text-xl">M FARHAN</h1>
       </div>
       <div className="flex items-center gap-2 cursor-pointer">
-        <Image src="/images/logo.png" width="40" height="40" />{" "}
-        <i className="fa fa-caret-down fa-"></i>
-        <div
-          className="relative -bottom-4 right-16
-         bg-white shadow-lg "
-        ></div>
+        <Dropdown
+          title={<Image src="/images/logo.png" width="40" height="40" />}
+        >
+          <Link href="/admin/account">
+            <a
+              className="text-gray-700 hover:bg-gray-100 block px-4 py-2 text-sm"
+              role="menuitem"
+              tabindex="-1"
+              id="menu-item-0"
+            >
+              Account settings
+            </a>
+          </Link>
+
+          <form method="POST" action="#" role="none">
+            <button
+              type="submit"
+              className="text-gray-700 hover:bg-gray-100 block w-full text-left px-4 py-2 text-sm"
+              role="menuitem"
+              tabindex="-1"
+              id="menu-item-3"
+            >
+              Sign out
+            </button>
+          </form>
+        </Dropdown>
       </div>
     </header>
   );
