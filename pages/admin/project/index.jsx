@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import MainAdminLayout from "../../../components/layouts/admin/main-admin-layout";
 import ProjectCard from "../../../components/materials/project-card";
 import InputImage from "../../../components/materials/form-input/input-image";
 import InputText from "../../../components/materials/form-input/input-text";
 import Textarea from "../../../components/materials/form-input/textarea";
+import ProjectService from "../../../services/project-service";
 
 const Project = () => {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    getProject();
+  }, []);
+
   const [formRequest, setFormRequest] = useState({
     image: "",
     projectName: "",
@@ -15,6 +22,13 @@ const Project = () => {
   });
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+
+  const getProject = () => {
+    ProjectService.Get().then(r => {
+      setProjects(r.data);
+    });
+  };
+
   const handleAdd = () => {
     setIsAdding(true);
     setIsEditing(false);
@@ -28,14 +42,14 @@ const Project = () => {
     setIsAdding(false);
     setIsEditing(false);
   };
-  const store = () => {
+  const store = async () => {
     setIsAdding(false);
-    console.log(formRequest);
+    await ProjectService.Store(formRequest);
+    getProject();
     clearFormRequest();
   };
   const update = () => {
     setIsEditing(false);
-    console.log(formRequest);
     clearFormRequest();
   };
 
@@ -125,142 +139,40 @@ const Project = () => {
 
         <div className="flex justify-center">
           <div
-            className="  mt-5 flex justify-center max-w-7xl  mx-5"
+            className="  mt-5 flex justify-center max-w-7xl   mx-5"
             // style={{ maxWidth: "1300px" }}
           >
-            <div className="grid lg:grid-cols-3 gap-4 lg:gap-0  ">
-              <div className="cardShadowHover lg:border-b lg:border-r flex">
-                <ProjectCard
-                  className=" "
-                  title="Webgis Survey Jembatan"
-                  tempo="Jun 2020 - Des 2020 "
-                  link="#"
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex
-                  repellendus ullam adipisci Lorem ipsum dolor sit amet
-                  consectetur adipisicing elit. Ex repellendus ullam adipisciss
-                </ProjectCard>
-                <div>
-                  <button
-                    onClick={handleEdit}
-                    className={`${
-                      isEditing ? "hidden" : ""
-                    } bg-primary px-2 py-1 mr-2 mt-2 hover:bg-yellow-500 text-white rounded-md`}
+            <div className="grid lg:grid-cols-3   gap-4 lg:gap-0  ">
+              {projects.map((r, i) => {
+                return (
+                  <div
+                    className={`cardShadowHover  ${ProjectService.BorderStyle(
+                      i + 1,
+                      projects.length
+                    )} flex`}
+                    key={i}
                   >
-                    <i className="fa fa-pencil "></i>
-                  </button>
-                </div>
-              </div>
-              <div className="cardShadowHover lg:border-b  flex">
-                <ProjectCard
-                  className=" "
-                  title="Webgis Survey Jembatan"
-                  tempo="Jun 2020 - Des 2020 "
-                  link="#"
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex
-                  repellendus ullam adipisci Lorem ipsum dolor sit amet
-                  consectetur adipisicing elit. Ex repellendus ullam adipisciss
-                </ProjectCard>
-                <div>
-                  <button
-                    onClick={handleEdit}
-                    className={`${
-                      isEditing ? "hidden" : ""
-                    } bg-primary px-2 py-1 mr-2 mt-2 hover:bg-yellow-500 text-white rounded-md`}
-                  >
-                    <i className="fa fa-pencil "></i>
-                  </button>
-                </div>
-              </div>
-              <div className="cardShadowHover lg:border-b lg:border-l flex">
-                <ProjectCard
-                  className=" "
-                  title="Webgis Survey Jembatan"
-                  tempo="Jun 2020 - Des 2020 "
-                  link="#"
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex
-                  repellendus ullam adipisci Lorem ipsum dolor sit amet
-                  consectetur adipisicing elit. Ex repellendus ullam adipisciss
-                </ProjectCard>
-                <div>
-                  <button
-                    onClick={handleEdit}
-                    className={`${
-                      isEditing ? "hidden" : ""
-                    } bg-primary px-2 py-1 mr-2 mt-2 hover:bg-yellow-500 text-white rounded-md`}
-                  >
-                    <i className="fa fa-pencil "></i>
-                  </button>
-                </div>
-              </div>
-              <div className="cardShadowHover lg:border-r  flex">
-                <ProjectCard
-                  className=" "
-                  title="Webgis Survey Jembatan"
-                  tempo="Jun 2020 - Des 2020 "
-                  link="#"
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex
-                  repellendus ullam adipisci Lorem ipsum dolor sit amet
-                  consectetur adipisicing elit. Ex repellendus ullam adipisciss
-                </ProjectCard>
-                <div>
-                  <button
-                    onClick={handleEdit}
-                    className={`${
-                      isEditing ? "hidden" : ""
-                    } bg-primary px-2 py-1 mr-2 mt-2 hover:bg-yellow-500 text-white rounded-md`}
-                  >
-                    <i className="fa fa-pencil "></i>
-                  </button>
-                </div>
-              </div>
-              <div className="cardShadowHover  flex">
-                <ProjectCard
-                  className=" "
-                  title="Webgis Survey Jembatan"
-                  tempo="Jun 2020 - Des 2020 "
-                  link="#"
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex
-                  repellendus ullam adipisci Lorem ipsum dolor sit amet
-                  consectetur adipisicing elit. Ex repellendus ullam adipisciss
-                </ProjectCard>
-                <div>
-                  <button
-                    onClick={handleEdit}
-                    className={`${
-                      isEditing ? "hidden" : ""
-                    } bg-primary px-2 py-1 mr-2 mt-2 hover:bg-yellow-500 text-white rounded-md`}
-                  >
-                    <i className="fa fa-pencil "></i>
-                  </button>
-                </div>
-              </div>
-              <div className="cardShadowHover lg:border-l flex">
-                <ProjectCard
-                  className=" "
-                  title="Webgis Survey Jembatan"
-                  tempo="Jun 2020 - Des 2020 "
-                  link="#"
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex
-                  repellendus ullam adipisci Lorem ipsum dolor sit amet
-                  consectetur adipisicing elit. Ex repellendus ullam adipisciss
-                </ProjectCard>
-                <div>
-                  <button
-                    onClick={handleEdit}
-                    className={`${
-                      isEditing ? "hidden" : ""
-                    } bg-primary px-2 py-1 mr-2 mt-2 hover:bg-yellow-500 text-white rounded-md`}
-                  >
-                    <i className="fa fa-pencil "></i>
-                  </button>
-                </div>
-              </div>
+                    <ProjectCard
+                      className=" "
+                      title={r.projectName}
+                      tempo={r.periode}
+                      link="#"
+                    >
+                      {r.desc}
+                    </ProjectCard>
+                    <div>
+                      <button
+                        onClick={handleEdit}
+                        className={`${
+                          isEditing ? "hidden" : ""
+                        } bg-primary px-2 py-1 mr-2 mt-2 hover:bg-yellow-500 text-white rounded-md`}
+                      >
+                        <i className="fa fa-pencil "></i>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

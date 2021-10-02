@@ -1,10 +1,21 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 const InputImage = props => {
   const input = useRef(null);
   const [hover, setHover] = useState(false);
-  const [imgPreview, setImgPreview] = useState("/images/default.jpg");
+  const [imgPreview, setImgPreview] = useState(
+    props.image || "/images/default.jpg"
+  );
+
+  useEffect(() => {
+    setImgPreview(props.image);
+  }, [props.image]);
+
   const handleImageClick = () => {
     input.current.click();
+  };
+  const handleImageChange = e => {
+    setImgPreview(URL.createObjectURL(e.target.files[0]));
+    props.onFileChange(e);
   };
   return (
     <div className="mb-2   ">
@@ -38,9 +49,8 @@ const InputImage = props => {
           placeholder={props.placeholder}
           className="hidden "
           ref={input}
-          onChange={e => {
-            setImgPreview(URL.createObjectURL(e.target.files[0]));
-          }}
+          accept="image/*"
+          onChange={handleImageChange}
         />
       </div>
     </div>

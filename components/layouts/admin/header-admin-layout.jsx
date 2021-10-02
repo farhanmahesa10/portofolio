@@ -31,7 +31,6 @@ const HeaderAdminLayout = props => {
             <a
               className="text-gray-700 hover:bg-gray-100 block px-4 py-2 text-sm"
               role="menuitem"
-              tabindex="-1"
               id="menu-item-0"
             >
               Account settings
@@ -43,7 +42,6 @@ const HeaderAdminLayout = props => {
               type="submit"
               className="text-gray-700 hover:bg-gray-100 block w-full text-left px-4 py-2 text-sm"
               role="menuitem"
-              tabindex="-1"
               id="menu-item-3"
             >
               Sign out

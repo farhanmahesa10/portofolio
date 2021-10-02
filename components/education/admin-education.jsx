@@ -1,7 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InputText from "../materials/form-input/input-text";
+import EducationService from "../../services/education-service";
 
 const AdminEducation = props => {
+  const [educations, setEducations] = useState([]);
+
+  useEffect(() => {
+    getEducation();
+  }, []);
+
+  const getEducation = async () => {
+    const data = await EducationService.Get();
+    setEducations(data.data);
+  };
+
   const [formRequest, setFormRequest] = useState({
     schoolLevel: "",
     schoolName: "",
@@ -23,9 +35,10 @@ const AdminEducation = props => {
     setIsEditing(false);
     clearFormRequest();
   };
-  const store = () => {
+  const store = async () => {
     setIsAdding(false);
-    props.onStore(formRequest);
+    await EducationService.Store(formRequest);
+    getEducation();
     clearFormRequest();
   };
   const update = () => {
@@ -108,74 +121,30 @@ const AdminEducation = props => {
         </div>
       </div>
       <div className="mt-4  grid gap-4">
-        <div className=" flex justify-between gap-4 hover:shadow-xl">
-          <div className="">
-            <h1 className="text-xl font-semibold">DIPLOMA 3 TEKNIK KOMPUTER</h1>
-            <h1>POLITEKNIK SUKABUMI</h1>
-            <h1>2020-2021</h1>
-          </div>
-          <div>
-            <button
-              onClick={handleEdit}
-              className={`${
-                isEditing ? "hidden" : ""
-              } bg-primary px-2 py-1 mr-2 mt-2 hover:bg-yellow-500 text-white rounded-md`}
+        {educations.map((r, i) => {
+          return (
+            <div
+              className=" flex justify-between gap-4 hover:shadow-xl"
+              key={i}
             >
-              <i className="fa fa-pencil "></i>
-            </button>
-          </div>
-        </div>
-        <div className=" flex justify-between gap-4 hover:shadow-xl">
-          <div className="hover:shadow-xl">
-            <h1 className="text-xl font-semibold">SMA</h1>
-            <h1>SMA NEGERI 2 KOTA SUKABUMI</h1>
-            <h1>2020-2021</h1>
-          </div>
-          <div>
-            <button
-              onClick={handleEdit}
-              className={`${
-                isEditing ? "hidden" : ""
-              } bg-primary px-2 py-1 mr-2 mt-2 hover:bg-yellow-500 text-white rounded-md`}
-            >
-              <i className="fa fa-pencil "></i>
-            </button>
-          </div>
-        </div>
-        <div className=" flex justify-between gap-4 hover:shadow-xl">
-          <div className="">
-            <h1 className="text-xl font-semibold">SMP</h1>
-            <h1>SMP ISLAM NURUL KAROMAH</h1>
-            <h1>2020-2021</h1>
-          </div>
-          <div>
-            <button
-              onClick={handleEdit}
-              className={`${
-                isEditing ? "hidden" : ""
-              } bg-primary px-2 py-1 mr-2 mt-2 hover:bg-yellow-500 text-white rounded-md`}
-            >
-              <i className="fa fa-pencil "></i>
-            </button>
-          </div>
-        </div>
-        <div className="flex justify-between gap-4 hover:shadow-xl">
-          <div className="hover:shadow-xl">
-            <h1 className="text-xl font-semibold">SD</h1>
-            <h1>SD NEGERI KARAMAT RANDU</h1>
-            <h1>2020-2021</h1>
-          </div>
-          <div>
-            <button
-              onClick={handleEdit}
-              className={`${
-                isEditing ? "hidden" : ""
-              } bg-primary px-2 py-1 mr-2 mt-2 hover:bg-yellow-500 text-white rounded-md`}
-            >
-              <i className="fa fa-pencil "></i>
-            </button>
-          </div>
-        </div>
+              <div className="">
+                <h1 className="text-xl font-semibold">{r.schoolName}</h1>
+                <h1> {r.schoolLevel}</h1>
+                <h1>{r.periode}</h1>
+              </div>
+              <div>
+                <button
+                  onClick={handleEdit}
+                  className={`${
+                    isEditing ? "hidden" : ""
+                  } bg-primary px-2 py-1 mr-2 mt-2 hover:bg-yellow-500 text-white rounded-md`}
+                >
+                  <i className="fa fa-pencil "></i>
+                </button>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

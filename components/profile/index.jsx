@@ -1,13 +1,31 @@
 import Image from "next/image";
+import { useState, useEffect } from "react";
+import HelloService from "../../services/hello-service";
 
 const Profile = () => {
+  const [profession, setProfession] = useState("");
+  const [about, setAbout] = useState("");
+  const [image, setImage] = useState("");
+
+  useEffect(() => {
+    getHello();
+  }, []);
+
+  const getHello = async () => {
+    const data = await HelloService.Get();
+    setProfession(data.data.profession);
+    setAbout(data.data.about);
+    setImage(
+      data.data.image ? process.env.BASE_API_ROUTE + "/" + data.data.image : ""
+    );
+  };
   return (
     <div className="lg:flex lg:items-center lg:h-screen border-b" id="hello">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4  ">
         <div className=" flex justify-center ">
           <div className="lg:mx-7">
             <img
-              src="/images/me.jpg"
+              src={image}
               alt="me"
               width="600"
               height="600"
@@ -22,14 +40,9 @@ const Profile = () => {
           <div className=" w-full  rounded-md px-4 ">
             <h3 className="font-semibold text-left">HELLO THERE,</h3>
             <h1 className="text-left text-4xl font-semibold">
-              I Am Web Developer
+              I Am {profession}
             </h1>
-            <h1>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet
-              libero magni obcaecati dignissimos id illum quod praesentium
-              ducimus alias quo a quos ipsa repudiandae nisi laudantium
-              voluptas.
-            </h1>
+            <h1>{about}</h1>
 
             {/* <table className="mt-2">
             <tr className="font-semibold">

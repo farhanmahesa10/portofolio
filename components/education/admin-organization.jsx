@@ -1,16 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InputImage from "../materials/form-input/input-image";
 import InputText from "../materials/form-input/input-text";
 import Textarea from "../materials/form-input/textarea";
-
+import OrganizationService from "../../services/organization-service";
 const AdminOrganization = props => {
+  const [organizations, setOrganizations] = useState([]);
+
+  useEffect(() => {
+    getOrganization();
+  }, []);
+
+  const getOrganization = async () => {
+    const data = await OrganizationService.Get();
+    setOrganizations(data.data);
+  };
+
   const [formRequest, setFormRequest] = useState({
-    schoolLevel: "",
+    name: "",
     periode: "",
     position: "",
   });
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+
   const handleAdd = () => {
     setIsAdding(true);
     setIsEditing(false);
@@ -25,9 +37,10 @@ const AdminOrganization = props => {
     setIsEditing(false);
     clearFormRequest();
   };
-  const store = () => {
+  const store = async () => {
     setIsAdding(false);
-    props.onStore(formRequest);
+    await OrganizationService.Store(formRequest);
+    getOrganization();
     clearFormRequest();
   };
   const update = () => {
@@ -38,8 +51,8 @@ const AdminOrganization = props => {
 
   const handleFormRequestChange = (key, value) => {
     switch (key) {
-      case "schoolLevel":
-        setFormRequest({ ...formRequest, schoolLevel: value });
+      case "name":
+        setFormRequest({ ...formRequest, name: value });
         break;
       case "position":
         setFormRequest({ ...formRequest, position: value });
@@ -50,7 +63,7 @@ const AdminOrganization = props => {
   };
   const clearFormRequest = () => {
     setFormRequest({
-      schoolLevel: "",
+      name: "",
       periode: "",
       position: "",
     });
@@ -94,8 +107,8 @@ const AdminOrganization = props => {
         <div className="w-full mt-7">
           <InputText
             placeholder="School Level"
-            value={formRequest.schoolLevel || ""}
-            valueChange={value => handleFormRequestChange("schoolLevel", value)}
+            value={formRequest.name || ""}
+            valueChange={value => handleFormRequestChange("name", value)}
           />
           <InputText
             placeholder="Periode"
@@ -110,44 +123,27 @@ const AdminOrganization = props => {
         </div>
       </div>
       <div className="mt-4  grid gap-4">
-        <div className="flex justify-between gap-4 hover:shadow-xl">
-          <div className="">
-            <h1 className="text-xl font-semibold">
-              Himpunan Mahasiswa Teknik Komputer
-            </h1>
-            <h1>2020-2021</h1>
-            <h1>Koordinator Department Pendidikan </h1>
-          </div>
-          <div>
-            <button
-              onClick={handleEdit}
-              className={`${
-                isEditing ? "hidden" : ""
-              } bg-primary px-2 py-1 mr-2 mt-2 hover:bg-yellow-500 text-white rounded-md`}
-            >
-              <i className="fa fa-pencil "></i>
-            </button>
-          </div>
-        </div>
-        <div className="flex justify-between gap-4 hover:shadow-xl">
-          <div className="">
-            <h1 className="text-xl font-semibold">
-              Himpunan Mahasiswa Teknik Komputer
-            </h1>
-            <h1>2020-2021</h1>
-            <h1>Anggota Himpunan Mahasiswa Teknik Komputer </h1>
-          </div>
-          <div>
-            <button
-              onClick={handleEdit}
-              className={`${
-                isEditing ? "hidden" : ""
-              } bg-primary px-2 py-1 mr-2 mt-2 hover:bg-yellow-500 text-white rounded-md`}
-            >
-              <i className="fa fa-pencil "></i>
-            </button>
-          </div>
-        </div>
+        {organizations.map((r, i) => {
+          return (
+            <div className="flex justify-between gap-4 hover:shadow-xl" key={i}>
+              <div className="">
+                <h1 className="text-xl font-semibold">{r.name}</h1>
+                <h1>{r.periode}</h1>
+                <h1>{r.position} </h1>
+              </div>
+              <div>
+                <button
+                  onClick={handleEdit}
+                  className={`${
+                    isEditing ? "hidden" : ""
+                  } bg-primary px-2 py-1 mr-2 mt-2 hover:bg-yellow-500 text-white rounded-md`}
+                >
+                  <i className="fa fa-pencil "></i>
+                </button>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

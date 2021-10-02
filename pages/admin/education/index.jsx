@@ -1,12 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import MainAdminLayout from "../../../components/layouts/admin/main-admin-layout";
 import AdminEducation from "../../../components/education/admin-education";
 import AdminOrganization from "../../../components/education/admin-organization";
 const Education = () => {
-  const educationStore = request => {
-    console.log(request);
-  };
+  const educationStore = request => {};
   const educationUpdate = request => {
     console.log(request);
   };

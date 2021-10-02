@@ -5,13 +5,22 @@ const Contact = () => {
         <div className="">
           <h1 className="text-xl mb-4 mt-10">CONTACT</h1>
           <h1 className="text-7xl font-bold">Know me closer.</h1>
-
-          <div className="h-2 w-60  bg-gray-800"></div>
+          <div className="flex">
+            <div className="h-2 w-60  bg-gray-800"></div>
+            &nbsp;
+            <div className="h-2 w-2  bg-gray-800"></div>
+          </div>
 
           <ul className="lg:flex flex-wrap flex  mt-24 gap-11 ">
             <li className="flex items-center gap-4 ">
               <i className="fa fa-whatsapp fa-2x text-green-500"></i>
-              <p className="text-lg border-b">0899 - 7197 - 975</p>
+              <a
+                href="https://wa.me/628997197975?lang=id&text=Halo%20M%20Farhan"
+                target="_blank"
+                className="text-lg border-b"
+              >
+                +62 899 - 7197 - 975
+              </a>
             </li>
             <li className="flex items-center gap-4">
               <i className="fa fa-envelope-square fa-2x "></i>

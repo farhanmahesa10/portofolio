@@ -19,7 +19,7 @@ const SidebarLayout = props => {
                   (router.pathname == "/admin" && i == 0)
                     ? "bg-primary text-white"
                     : ""
-                } py-4 pr-2 pl-6 hover:bg-primary hover:text-white rounded-r-full `}
+                } py-4 pr-2 pl-6 hover:bg-gray-200 hover:text-white rounded-r-full `}
               >
                 {r.title}
               </a>

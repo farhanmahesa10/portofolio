@@ -1,5 +1,27 @@
 import { Element } from "react-scroll";
+import { useState, useEffect } from "react";
+import OrganizationService from "../../services/organization-service";
+import EducationService from "../../services/education-service";
 const Education = () => {
+  const [educations, setEducations] = useState([]);
+  const [organizations, setOrganizations] = useState([]);
+
+  useEffect(() => {
+    getEducation();
+  }, []);
+  useEffect(() => {
+    getOrganization();
+  }, []);
+  const getEducation = async () => {
+    const data = await EducationService.Get();
+    setEducations(data.data);
+  };
+
+  const getOrganization = async () => {
+    const data = await OrganizationService.Get();
+    setOrganizations(data.data);
+  };
+
   return (
     <div id="education" className="pb-24 img-gradient">
       <h1>&nbsp;</h1>
@@ -14,49 +36,29 @@ const Education = () => {
           <div className="grid md:grid-cols-2 mt-10 gap-10">
             <div className="">
               <h1 className="mb-8 font-bold text-4xl">Education</h1>
-              <div>
-                <h1 className="text-xl font-semibold">
-                  DIPLOMA 3 TEKNIK KOMPUTER
-                </h1>
-                <h1>POLITEKNIK SUKABUMI</h1>
-                <h1>2020-2021</h1>
-              </div>
-              <br />
-              <div>
-                <h1 className="text-xl font-semibold">SMA</h1>
-                <h1>SMA NEGERI 2 KOTA SUKABUMI</h1>
-                <h1>2020-2021</h1>
-              </div>
-              <br />
-              <div>
-                <h1 className="text-xl font-semibold">SMP</h1>
-                <h1>SMP ISLAM NURUL KAROMAH</h1>
-                <h1>2020-2021</h1>
-              </div>
-              <br />
-              <div>
-                <h1 className="text-xl font-semibold">SD</h1>
-                <h1>SD NEGERI KARAMAT RANDU</h1>
-                <h1>2020-2021</h1>
-              </div>
+              {educations.map((r, i) => {
+                return (
+                  <div key={i}>
+                    <h1 className="text-xl font-semibold">{r.schoolName}</h1>
+                    <h1> {r.schoolLevel}</h1>
+                    <h1>{r.periode}</h1>
+                    <br />
+                  </div>
+                );
+              })}
             </div>
             <div>
               <h1 className="mb-8 font-bold text-4xl">Organization</h1>
-              <div>
-                <h1 className="text-xl font-semibold">
-                  Himpunan Mahasiswa Teknik Komputer
-                </h1>
-                <h1>2020-2021</h1>
-                <h1>Koordinator Department Pendidikan </h1>
-              </div>
-              <br />
-              <div>
-                <h1 className="text-xl font-semibold">
-                  Himpunan Mahasiswa Teknik Komputer
-                </h1>
-                <h1>2020-2021</h1>
-                <h1>Anggota Himpunan Mahasiswa Teknik Komputer </h1>
-              </div>
+              {organizations.map((r, i) => {
+                return (
+                  <div key={i}>
+                    <h1 className="text-xl font-semibold">{r.name}</h1>
+                    <h1>{r.periode}</h1>
+                    <h1>{r.position} </h1>
+                    <br />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
