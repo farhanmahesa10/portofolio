@@ -9,7 +9,8 @@ import ProjectService from "../../../services/project-service";
 
 const Project = () => {
   const [projects, setProjects] = useState([]);
-
+  const [updateId, setUpdateId] = useState(null);
+  const [projectToggle, setProjectToggle] = useState(false);
   useEffect(() => {
     getProject();
   }, []);
@@ -33,12 +34,22 @@ const Project = () => {
     setIsAdding(true);
     setIsEditing(false);
   };
-  const handleEdit = () => {
+  const handleEdit = req => {
+    setProjectToggle(true);
+    setFormRequest({
+      ...formRequest,
+      image: "",
+      projectName: req.projectName,
+      periode: req.periode,
+      desc: req.desc,
+    });
+    setUpdateId(req._id);
     setIsAdding(false);
     setIsEditing(true);
   };
 
   const handleCancel = () => {
+    setProjectToggle(false);
     setIsAdding(false);
     setIsEditing(false);
   };
@@ -48,8 +59,11 @@ const Project = () => {
     getProject();
     clearFormRequest();
   };
-  const update = () => {
+  const update = async () => {
     setIsEditing(false);
+    setProjectToggle(false);
+    await ProjectService.Update(updateId, formRequest);
+    getProject();
     clearFormRequest();
   };
 
@@ -76,6 +90,10 @@ const Project = () => {
       periode: "",
       desc: "",
     });
+  };
+  const handleDestroy = async id => {
+    await ProjectService.Destroy(id);
+    getProject();
   };
   return (
     <MainAdminLayout title="MANAGE PROJECT">
@@ -142,7 +160,7 @@ const Project = () => {
             className="  mt-5 flex justify-center max-w-7xl   mx-5"
             // style={{ maxWidth: "1300px" }}
           >
-            <div className="grid lg:grid-cols-3   gap-4 lg:gap-0  ">
+            <div className="grid lg:grid-cols-3  gap-4 lg:gap-0  ">
               {projects.map((r, i) => {
                 return (
                   <div
@@ -160,15 +178,21 @@ const Project = () => {
                     >
                       {r.desc}
                     </ProjectCard>
-                    <div>
-                      <button
-                        onClick={handleEdit}
-                        className={`${
-                          isEditing ? "hidden" : ""
-                        } bg-primary px-2 py-1 mr-2 mt-2 hover:bg-yellow-500 text-white rounded-md`}
-                      >
-                        <i className="fa fa-pencil "></i>
-                      </button>
+                    <div
+                      className={`py-1 mr-2 mt-2  ${
+                        projectToggle ? "hidden" : ""
+                      } flex gap-4`}
+                    >
+                      <div className="mr-2">
+                        <button onClick={() => handleEdit(r)}>
+                          <i className="fa fa-pencil px-2 py-1 hover:bg-yellow-300 bg-primary h-full rounded-sm text-white -ml-4"></i>
+                        </button>
+                      </div>
+                      <div>
+                        <button onClick={() => handleDestroy(r._id)}>
+                          <i className="fa fa-trash px-2 py-1 hover:bg-red-300 bg-red-400 h-full rounded-sm text-white -ml-4"></i>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );

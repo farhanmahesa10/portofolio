@@ -4,7 +4,8 @@ import EducationService from "../../services/education-service";
 
 const AdminEducation = props => {
   const [educations, setEducations] = useState([]);
-
+  const [updateId, setUpdateId] = useState(null);
+  const [educationToggle, setEducationToggle] = useState(false);
   useEffect(() => {
     getEducation();
   }, []);
@@ -22,28 +23,42 @@ const AdminEducation = props => {
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const handleAdd = () => {
+    setEducationToggle(true);
     setIsAdding(true);
     setIsEditing(false);
   };
-  const handleEdit = () => {
+  const handleEdit = req => {
+    setEducationToggle(true);
+    setFormRequest({
+      ...formRequest,
+      schoolLevel: req.schoolLevel,
+      schoolName: req.schoolName,
+      periode: req.periode,
+    });
+    setUpdateId(req._id);
     setIsAdding(false);
     setIsEditing(true);
   };
 
   const handleCancel = () => {
+    setEducationToggle(false);
     setIsAdding(false);
     setIsEditing(false);
     clearFormRequest();
+    setUpdateId(null);
   };
   const store = async () => {
     setIsAdding(false);
+    setEducationToggle(false);
     await EducationService.Store(formRequest);
     getEducation();
     clearFormRequest();
   };
-  const update = () => {
+  const update = async () => {
     setIsEditing(false);
-    props.onUpdate(formRequest);
+    setEducationToggle(false);
+    await EducationService.Update(updateId, formRequest);
+    getEducation();
     clearFormRequest();
   };
 
@@ -65,6 +80,11 @@ const AdminEducation = props => {
       schoolName: "",
       periode: "",
     });
+  };
+
+  const handleDestroy = async id => {
+    await EducationService.Destroy(id);
+    getEducation();
   };
   return (
     <div>
@@ -104,14 +124,14 @@ const AdminEducation = props => {
       <div className={`${isEditing || isAdding ? "" : "hidden"} flex gap-4`}>
         <div className="w-full mt-7">
           <InputText
+            placeholder="School Name"
+            value={formRequest.schoolName || ""}
+            valueChange={value => handleFormRequestChange("schoolName", value)}
+          />
+          <InputText
             placeholder="School Level"
             value={formRequest.schoolLevel || ""}
             valueChange={value => handleFormRequestChange("schoolLevel", value)}
-          />
-          <InputText
-            placeholder="School name"
-            value={formRequest.schoolName || ""}
-            valueChange={value => handleFormRequestChange("schoolName", value)}
           />
           <InputText
             placeholder="Periode"
@@ -132,15 +152,17 @@ const AdminEducation = props => {
                 <h1> {r.schoolLevel}</h1>
                 <h1>{r.periode}</h1>
               </div>
-              <div>
-                <button
-                  onClick={handleEdit}
-                  className={`${
-                    isEditing ? "hidden" : ""
-                  } bg-primary px-2 py-1 mr-2 mt-2 hover:bg-yellow-500 text-white rounded-md`}
-                >
-                  <i className="fa fa-pencil "></i>
-                </button>
+              <div className={`${educationToggle ? "hidden" : ""} flex gap-4`}>
+                <div className="mr-2">
+                  <button onClick={() => handleEdit(r)}>
+                    <i className="fa fa-pencil px-2 py-1 hover:bg-yellow-300 bg-primary h-full rounded-sm text-white -ml-4"></i>
+                  </button>
+                </div>
+                <div>
+                  <button onClick={() => handleDestroy(r._id)}>
+                    <i className="fa fa-trash px-2 py-1 hover:bg-red-300 bg-red-400 h-full rounded-sm text-white -ml-4"></i>
+                  </button>
+                </div>
               </div>
             </div>
           );

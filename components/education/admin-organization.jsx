@@ -5,6 +5,8 @@ import Textarea from "../materials/form-input/textarea";
 import OrganizationService from "../../services/organization-service";
 const AdminOrganization = props => {
   const [organizations, setOrganizations] = useState([]);
+  const [updateId, setUpdateId] = useState(null);
+  const [organizationToggle, setOrganizationToggle] = useState(false);
 
   useEffect(() => {
     getOrganization();
@@ -27,12 +29,21 @@ const AdminOrganization = props => {
     setIsAdding(true);
     setIsEditing(false);
   };
-  const handleEdit = () => {
+  const handleEdit = req => {
+    setOrganizationToggle(true);
+    setUpdateId(req._id);
+    setFormRequest({
+      ...formRequest,
+      name: req.name,
+      periode: req.periode,
+      position: req.position,
+    });
     setIsAdding(false);
     setIsEditing(true);
   };
 
   const handleCancel = () => {
+    setOrganizationToggle(false);
     setIsAdding(false);
     setIsEditing(false);
     clearFormRequest();
@@ -43,9 +54,11 @@ const AdminOrganization = props => {
     getOrganization();
     clearFormRequest();
   };
-  const update = () => {
+  const update = async () => {
     setIsEditing(false);
-    props.onUpdate(formRequest);
+    setOrganizationToggle(false);
+    await OrganizationService.Update(updateId, formRequest);
+    getOrganization();
     clearFormRequest();
   };
 
@@ -67,6 +80,10 @@ const AdminOrganization = props => {
       periode: "",
       position: "",
     });
+  };
+  const handleDestroy = async id => {
+    await OrganizationService.Destroy(id);
+    getOrganization();
   };
   return (
     <div>
@@ -131,15 +148,19 @@ const AdminOrganization = props => {
                 <h1>{r.periode}</h1>
                 <h1>{r.position} </h1>
               </div>
-              <div>
-                <button
-                  onClick={handleEdit}
-                  className={`${
-                    isEditing ? "hidden" : ""
-                  } bg-primary px-2 py-1 mr-2 mt-2 hover:bg-yellow-500 text-white rounded-md`}
-                >
-                  <i className="fa fa-pencil "></i>
-                </button>
+              <div
+                className={`${organizationToggle ? "hidden" : ""} flex gap-4`}
+              >
+                <div className="mr-2">
+                  <button onClick={() => handleEdit(r)}>
+                    <i className="fa fa-pencil px-2 py-1 hover:bg-yellow-300 bg-primary h-full rounded-sm text-white -ml-4"></i>
+                  </button>
+                </div>
+                <div>
+                  <button onClick={() => handleDestroy(r._id)}>
+                    <i className="fa fa-trash px-2 py-1 hover:bg-red-300 bg-red-400 h-full rounded-sm text-white -ml-4"></i>
+                  </button>
+                </div>
               </div>
             </div>
           );
