@@ -149,7 +149,9 @@ const AdminOrganization = props => {
                 <h1>{r.position} </h1>
               </div>
               <div
-                className={`${organizationToggle ? "hidden" : ""} flex gap-4`}
+                className={`px-2 ${
+                  organizationToggle ? "hidden" : ""
+                } flex gap-4`}
               >
                 <div className="mr-2">
                   <button onClick={() => handleEdit(r)}>

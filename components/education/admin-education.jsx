@@ -152,7 +152,11 @@ const AdminEducation = props => {
                 <h1> {r.schoolLevel}</h1>
                 <h1>{r.periode}</h1>
               </div>
-              <div className={`${educationToggle ? "hidden" : ""} flex gap-4`}>
+              <div
+                className={` px-2 ${
+                  educationToggle ? "hidden" : ""
+                } flex gap-4`}
+              >
                 <div className="mr-2">
                   <button onClick={() => handleEdit(r)}>
                     <i className="fa fa-pencil px-2 py-1 hover:bg-yellow-300 bg-primary h-full rounded-sm text-white -ml-4"></i>
